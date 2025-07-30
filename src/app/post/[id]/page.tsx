@@ -1,5 +1,5 @@
 import Layout from "@/components/layout";
-import Content from "@/components/post/content";
+import Content from "@/modules/post/content";
 
 const Post = () => {
   return (
