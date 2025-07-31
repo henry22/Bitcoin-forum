@@ -26,7 +26,7 @@ const CommentEditor = ({ isOpen, setIsOpen }: CommentEditorProps) => {
     onSuccess: () => {
       setIsOpen(false);
       queryClient.invalidateQueries({
-        queryKey: ["posts"],
+        queryKey: ["posts", "1"],
       });
     },
   });
