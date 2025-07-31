@@ -1,5 +1,4 @@
 import CommentBtn from "@/modules/home/comment-btn";
-import Pagination from "@/modules/home/pagination";
 import Image from "next/image";
 import PostList from "./post-list";
 
