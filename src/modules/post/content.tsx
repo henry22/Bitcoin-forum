@@ -16,7 +16,9 @@ const Content = () => {
       >
         {"← Back"}
       </button>
-      <Post post={data} />
+      {isLoading && <div>Loading...</div>}
+      {error && <div>Error: {error.message}</div>}
+      {!isLoading && <Post post={data} />}
     </div>
   );
 };
