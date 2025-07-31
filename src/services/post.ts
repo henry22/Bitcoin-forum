@@ -1,4 +1,4 @@
-export const getPostList = async (page: number) => {
+export const getPostList = async (page: string) => {
   const response = await fetch(`/api/post/list?page=${page}&limit=5`);
   const resData = await response.json();
 
@@ -10,4 +10,7 @@ export const addPost = async (data: { title: string; content: string }) => {
     method: "POST",
     body: JSON.stringify(data),
   });
+  const resData = await response.json();
+
+  return resData.data;
 };

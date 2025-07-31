@@ -4,7 +4,7 @@ import { getPostList } from "@/services/post";
 
 const useQueryPostList = () => {
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
+  const currentPage = searchParams.get("page") || "1";
 
   return useQuery({
     queryKey: ["posts", currentPage],

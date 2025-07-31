@@ -7,6 +7,8 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addPost } from "@/services/post";
 
 interface CommentEditorProps {
   isOpen: boolean;
@@ -17,12 +19,34 @@ const CommentEditor = ({ isOpen, setIsOpen }: CommentEditorProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  const queryClient = useQueryClient();
+
+  const { mutate: addPostMutate, isPending } = useMutation({
+    mutationFn: addPost,
+    onSuccess: () => {
+      setIsOpen(false);
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+    },
+  });
+
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
   const onContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
+  };
+
+  const onPost = () => {
+    if (isPending) return;
+    if (!title || !content) {
+      alert("Title and content are required");
+      return;
+    }
+
+    addPostMutate({ title, content });
   };
 
   return (
@@ -59,9 +83,10 @@ const CommentEditor = ({ isOpen, setIsOpen }: CommentEditorProps) => {
           </button>
           <button
             className="text-white font-bold cursor-pointer"
-            onClick={() => setIsOpen(false)}
+            onClick={onPost}
+            disabled={isPending}
           >
-            Post
+            {isPending ? "Posting..." : "Post"}
           </button>
         </div>
       </DialogPanel>
