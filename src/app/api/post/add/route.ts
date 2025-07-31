@@ -12,7 +12,7 @@ export const POST = withApiHandler(async (request: NextRequest) => {
   if (!title || !content) {
     return Response.json(
       error("Title and content are required", BUSINESS_STATUS_CODE.WARNING),
-      { status: 400 }
+      { status: 400 },
     );
   }
 

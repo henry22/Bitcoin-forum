@@ -30,6 +30,6 @@ export const GET = withApiHandler(async (request: NextRequest) => {
     }),
     {
       status: 200,
-    }
+    },
   );
 });
